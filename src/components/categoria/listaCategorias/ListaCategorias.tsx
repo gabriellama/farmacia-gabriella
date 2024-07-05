@@ -1,22 +1,22 @@
-import React, {useEffect, useState } from 'react';
-import { InfinitySpin } from 'react-loader-spinner';
+import React, { useEffect, useState } from 'react';
+import { Dna } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
-import Categoria from '../../../models/Categoria';
 import { buscar } from '../../../service/Service';
-import CardCategorias from '../cardCategorias/CardCategorias'
-import { toastAlerts } from '../../../util/toastAlerts';
+import CardCategorias from '../cardCategorias/CardCategorias';
+import Categoria from '../../../models/Categoria';
 
 function ListaCategorias() {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
 
   let navigate = useNavigate();
 
+
   async function buscarCategorias() {
     try {
-      await buscar('/temas', setCategorias);
+      await buscar('/categorias', setCategorias);
     } catch (error: any) {
-      if(error.toString().includes('403')) {
-        toastAlerts('O token expirou, favor logar novamente', 'info')
+      if (error.toString().includes('403')) {
+        alert('O token expirou, favor logar novamente')
       }
     }
   }
@@ -27,11 +27,13 @@ function ListaCategorias() {
   return (
     <>
       {categorias.length === 0 && (
-        <InfinitySpin
-        visible={true}
-        width="300"
-        color="#0891b2"
-        ariaLabel="infinity-spin-loading"
+        <Dna
+          visible={true}
+          height="200"
+          width="200"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper mx-auto"
         />
       )}
       <div className="flex justify-center w-full my-4">
